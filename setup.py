@@ -8,15 +8,14 @@ setup(
     author="Rajesh Yogeshwar",
     author_email="rajesh.yogeshwar@gmail.com",
     description="Tool to generate fake logs for testing and to be used in learning tools like Kafka",
-    packages=["fake-logs"],
     include_package_data=True,
-    url="",
+    url="https://github.com/rajeshyogeshwar/fake-logs",
     license="MIT",
     install_requires=["Click", "pandas", "loguru", "Faker"],
     python_requires=">=3.7",
     entry_points="""
         [console_scripts]
-        fake-logs=generator:fake_log_generator
+        fake-logs=cli:generate_fake_logs
     """,
     classifiers=[
         "Programming Language :: Python :: 3",

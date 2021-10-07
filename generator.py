@@ -1,15 +1,38 @@
-"""Log generator module."""
-import click
+"""
+This module exposes method that can be used to generate and return logs in string format. It is supposed to be used by importing the module and calling the method with necessary parameters.
+"""
+from datetime import datetime, timedelta
 
-from constants import *
-from engine.webserver import WebserverFactory
+from engine.webservers.nginx import Nginx
+from engine.webservers.apache import Apache
 
 
-@click.command()
-@click.option("--engine", "-e", required=True, type=ENGINE_OPTION_TYPE, help=ENGINE_HELP_MESSAGE)
-@click.option("--lines", "-l", required=True, type=int, help=LINES_HELP_MESSAGE)
-@click.option("--interval", "-i", type=float, default=1, help=INTERVAL_HELP_MESSAGE)
-@click.option("--file_path", "-f", required=True, type=str, help="Absolute file path to write logs to.")
-def fake_log_generator(engine, lines, interval, file_path):
-    """Log generator."""
-    WebserverFactory.generate(engine=engine, number_of_lines=lines, interval=interval, file_path=file_path)
+def get_nginx_webserver_log(interval: float):
+    """
+    A method to be used to generate logs based on supplied parameters and return them.
+
+    :param: interval: Time interval between two consecutive logs
+    :type: interval: int
+
+    """
+    dt = datetime.utcnow()
+    while True:
+        yield Nginx.get_log_line(dt=dt)
+        dt = dt + timedelta(seconds=interval)
+
+
+def get_apache_webserver_log(interval: float, format: str):
+    """
+    A method to be used to generate logs based on supplied parameters and return them.
+
+    :param: interval: Time interval between two consecutive logs
+    :type: interval: int
+
+    :param: format: Apache log format [common or combined]
+    :type: format: str
+
+    """
+    dt = datetime.utcnow()
+    while True:
+        yield Apache.get_log_line(dt=dt, format=format)
+        dt = dt + timedelta(seconds=interval)

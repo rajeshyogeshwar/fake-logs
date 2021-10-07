@@ -48,5 +48,5 @@ If you intend to import this as a dependency in your project. You can generate l
 ### Performance
 
 ```
-![alt text](https://github.com/rajeshyogeshwar/fake-logs/blob/main/images/perf.png)
+![alt text](https://raw.githubusercontent.com/rajeshyogeshwar/fake-logs/main/images/perf.png)
 ```
